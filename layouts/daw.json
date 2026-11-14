@@ -1,0 +1,81 @@
+{
+  "id": "root",
+  "type": "column",
+  "titlebar": "none",
+  "traffic_lights": [12, 13],
+  "preview": "layouts/daw.svg",
+  "theme": "daw",
+  "ui_font": "Geist",
+  "font_size": 13,
+  "terminal_padding": [8, 8],
+  "background": "#0f0f0f",
+  "divider": { "width": 1, "color": "#0c0c0c" },
+  "children": [
+    {
+      "id": "transport",
+      "type": "block",
+      "size": { "px": 40 },
+      "window_drag": true,
+      "content": { "mod": "daw", "props": { "role": "transport" } }
+    },
+    {
+      "id": "body",
+      "type": "row",
+      "divider": { "width": 1, "color": "#0c0c0c" },
+      "children": [
+        {
+          "id": "browser",
+          "type": "block",
+          "size": { "px": 224 },
+          "min": 170,
+          "max": 420,
+          "content": { "mod": "daw", "props": { "role": "browser" } }
+        },
+        {
+          "id": "views",
+          "type": "column",
+          "divider": { "width": 1, "color": "#0c0c0c" },
+          "children": [
+            {
+              "id": "session",
+              "type": "block",
+              "size": { "px": 236 },
+              "min": 120,
+              "max": 1600,
+              "content": { "mod": "daw", "props": { "role": "session" } }
+            },
+            {
+              "id": "detail",
+              "type": "block",
+              "padding": 4,
+              "background": "#141414",
+              "content": {
+                "tab": "active",
+                "pane": {
+                  "gap": 4,
+                  "radius": 3,
+                  "background": "background",
+                  "lone": true,
+                  "border": { "width": 1, "color": "#080808" },
+                  "focus": { "width": 1, "color": "accent" },
+                  "header": {
+                    "content": { "mod": "daw", "props": { "role": "device" } },
+                    "height": 24,
+                    "position": "top",
+                    "reveal": "always"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "statusbar",
+      "type": "block",
+      "size": { "px": 24 },
+      "content": { "mod": "daw", "props": { "role": "status" } }
+    }
+  ]
+}
