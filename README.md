@@ -30,6 +30,10 @@ It makes no network requests and writes nothing outside Herdr's own storage.
 
 [`RECIPE.md`](RECIPE.md) describes the layout region by region: what each part shows, how it reacts to agent status, and how it's built. An agent can rebuild it from scratch from that file.
 
+## Working on it
+
+Edit the layout where Herdr runs it (`~/.config/herdr-app`, where it reloads live), then run `./sync.sh` to copy the shipped files back into this repo. It skips the mod's generated typings and never copies your data, and it ends with `git status` instead of committing.
+
 ## License
 
 [Apache-2.0](LICENSE)
