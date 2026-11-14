@@ -32,7 +32,7 @@ It makes no network requests and writes nothing outside Herdr's own storage.
 
 ## Working on it
 
-Edit the layout where Herdr runs it (`~/.config/herdr-app`, where it reloads live), then run `./sync.sh` to copy the shipped files back into this repo. It skips the mod's generated typings and never copies your data, and it ends with `git status` instead of committing.
+Edit the layout where Herdr runs it (`~/.config/herdr-app`, where it reloads live), then run `sh sync.sh` to copy the shipped files back into this repo. It skips the mod's generated typings and never copies your data, and it ends with `git status` instead of committing.
 
 ## License
 
