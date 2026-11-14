@@ -59,12 +59,13 @@ A plain terminal's device activator is yellow.
   - Palette LCD: the palette. Gear: settings.
 - **Browser**
   - Search: opens the picker.
-  - Sets: click shows the space, double-click renames it, + makes a new one.
+  - Sets: click shows the space, double-click renames it, right-click opens the DAW's menu for it (below), + makes a new one.
   - Agents: click starts the agent as a new track (`tab.new` with its command, named after it); ⌥-click (Alt-click) adds it as a clip, splitting right beside the focused pane of the shown track. The list comes from `knownAgents` for the Set's machine, shown at once from the + menu's cache (shared `new-menu.agents`) and checked again every minute.
   - Running: sorted blocked → done → working → idle. This order is also what `agent.next` / `agent.prev` follow (`setAgentOrder`). Click focuses an agent.
   - Places: live terminal folders, then space folders, then home. Click opens a new tab there.
 - **Session grid**
-  - Track headers: click shows the tab, double-click renames it, right-click opens Herdr's tab menu.
+  - Track headers: click shows the tab, double-click renames it, right-click opens the DAW's menu for it.
+  - The right-click menu (a `menu` role of the mod, opened as a 220 px popup sized to its rows): a row of the ten clip colors plus ⌀ (automatic), the current one outlined in white, then Herdr's own items for a space (Rename; New/Open worktree in a git folder, Remove worktree in a linked one; Close) or a tab (Rename, New tab, Close), drawn like Herdr's `menu` mod with ↑/↓, Enter and Esc. A Set's color goes in Herdr's shared `space.colors` (`#rrggbb`; theme names like `ansi6` from the sidebar map to the matching clip color), a track's in shared `daw.track.colors` by tab id; both drop ids that no longer exist when written.
   - Clips: click shows the tab and focuses the pane, double-click zooms it, right-click opens Herdr's terminal menu. The focused pane of the shown tab has a white outline; a zoomed one shows `Z`.
   - Clip text: an agent's session title (its terminal title without leading status glyphs), else the program; the tooltip has both, plus the context reading.
   - The empty slot right under a track's last clip: double-click splits a new terminal clip. "+ track": double-click makes a new tab.
@@ -83,7 +84,7 @@ A plain terminal's device activator is yellow.
 - **Layout** `layouts/daw.json`: `column` root → `transport` block, `body` row (`browser` block, `views` column with `session` block and `detail` tab block), `statusbar` block. Every block is one mod, `daw`, given `props: { role }`: `transport`, `browser`, `session`, `device` (the pane header) or `status`; `scene` is the dialog the grid opens. The session block also takes an optional `context_window` (tokens) to fix every strip's window. `layouts/daw.svg` is the settings preview.
 - **Theme** `themes/daw.json`. It's named like the layout, so it's this layout's own theme.
 - **Mod** `mods/daw/` (`mod.json`: `{ "place": "none", "title": "DAW" }`):
-  - `main.js` picks a role class from `props().role`, and each role lives in its own file (`transport.js`, `browser.js`, `session.js`, `device.js`, `status.js`, `scene.js`).
+  - `main.js` picks a role class from `props().role`, and each role lives in its own file (`transport.js`, `browser.js`, `session.js`, `device.js`, `status.js`, `scene.js`, `menu.js`).
   - `kit.js` holds the fixed studio colors, clip colors, LEDs, toggles, shortcut labels, scene storage and helpers.
   - `context.js` reads context figures and windows; `lanes.js` records and draws the activity lanes.
   - The five SVG icons are play, stop, rec, caret and folder.

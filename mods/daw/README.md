@@ -2,7 +2,7 @@
 
 An Ableton Live–style layout for Herdr: `layouts/daw.json` + `themes/daw.json` +
 this mod. One mod, many roles (`main.js`): transport, browser, session, device,
-status, scene.
+status, scene, menu.
 
 ## The mapping
 
@@ -24,12 +24,13 @@ status, scene.
   each jumps through the agents in that state. CPU / RAM / GPU meters (GPU hides
   when nothing reports it), the command palette and settings.
 - **Browser** (left). Search opens the picker. *Sets*: click shows one,
-  double-click renames, + makes one. *Agents*: click starts one as a new track,
+  double-click renames, right-click for the Set menu (color, Rename, worktrees,
+  Close), + makes one. *Agents*: click starts one as a new track,
   ⌥-click (Alt-click) adds it as a clip beside the focused pane. *Running*: every
   agent, most urgent first; this is also the order `agent.next` / `agent.prev`
   follow. *Places*: the folders your terminals are in; click opens a tab there.
 - **Session View**. Track headers: click shows the tab, double-click renames,
-  right-click for the tab menu. Clips: click focuses, double-click zooms,
+  right-click for its color and the tab menu. Clips: click focuses, double-click zooms,
   right-click for the terminal menu. A working agent's ▶ pulses green, a blocked
   one pulses red, a finished one shows an amber dot. Double-click the empty slot
   under a track's clips for a new terminal clip, or "+ track" for a new tab.
@@ -90,6 +91,8 @@ Geist and JetBrains Mono, ship with Herdr; nothing needs installing.
 
 - Activity lanes start empty: Herdr keeps no past states, so the mod records them
   while it runs (in the mod's own storage) and keeps the last 31 minutes.
-- Task scenes are stored per Set in Herdr's shared state (`daw.scenes`).
+- Task scenes are stored per Set in Herdr's shared state (`daw.scenes`), track
+  colors in `daw.track.colors`. A Set's color is Herdr's own (`space.colors`), so
+  the sidebar and picker show the one you pick here.
 - Tracks shrink to 64 px at the narrowest and the grid doesn't scroll sideways,
   so with more than about a dozen tabs Master is pushed off the right edge.

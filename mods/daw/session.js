@@ -23,8 +23,9 @@
 
 import { div, svg } from "gpui-kit";
 import { h_flex, v_flex } from "gpui-base";
-import { spaces, panes, agents, run, theme, openOverlay } from "herdr";
+import { spaces, panes, agents, run, theme, openOverlay, shared } from "herdr";
 import { C, CLIPS, programIcon, clean, scenesOf, installedOn } from "./kit.js";
+import { openMenu, TRACK_COLORS } from "./menu.js";
 import { ContextReader, harness, short } from "./context.js";
 import { ActivityLanes } from "./lanes.js";
 
@@ -38,7 +39,8 @@ const TRACK_MAX = 172; // widest a track gets, px
 const LANES_PER_AGENT = 5; // more agents than this: one activity lane per track
 
 const urgent = (list) => list.reduce((a, s) => ((RANK[s] ?? 0) > (RANK[a] ?? 0) ? s : a), null);
-const trackColor = (tab) => CLIPS[(tab.index - 1) % CLIPS.length];
+// A track keeps the color picked in its menu, else takes one by position.
+const trackColor = (tab) => (shared(TRACK_COLORS) ?? {})[tab.id] ?? CLIPS[(tab.index - 1) % CLIPS.length];
 
 // A clip color a shade darker: terminal clips.
 function shade(hex, f) {
@@ -242,10 +244,10 @@ export default class Session {
           .hover((s) => s.opacity(0.88))
           .tooltip(`Track ${tab.index}${tab.settled ? " (settled)" : ""}`)
           .on_click((e) => (e.click_count === 2 ? run("tab.rename", { id: tab.id }) : run("tab.select", { id: tab.id })))
-          // Herdr's tab menu: Rename, New tab, Close (the track and its clips).
+          // The track menu: its color, then Rename, New tab, Close (the track and its clips).
           .on_mouse_down("right", (_e, cx) => {
             cx.stop_propagation();
-            openOverlay({ mod: "menu", kind: "popup", width: 200, props: { tab: "tab", target: { id: tab.id, space: spaces().find((s) => s.active)?.id } } });
+            openMenu("tab", { id: tab.id, space: spaces().find((s) => s.active)?.id }, cx);
           })
           // Its number always, then the tab's name once someone named it ("2  fix login").
           .child(div().flex_none().text_size(11).font_bold().text_color(C.ink).child(String(tab.index)))

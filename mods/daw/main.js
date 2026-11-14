@@ -6,6 +6,7 @@
 //   device     a pane's header, drawn as a device title bar
 //   status     the bottom bar: focused terminal info and view toggles
 //   scene      the task scene editor (a dialog the session grid opens)
+//   menu       the right-click menu for a Set or a track: color, then Herdr's items
 
 import { View, div } from "gpui-kit";
 import { props } from "herdr";
@@ -15,8 +16,9 @@ import Session from "./session.js";
 import Device from "./device.js";
 import Status from "./status.js";
 import SceneEditor from "./scene.js";
+import Menu from "./menu.js";
 
-const ROLES = { transport: Transport, browser: Browser, session: Session, device: Device, status: Status, scene: SceneEditor };
+const ROLES = { transport: Transport, browser: Browser, session: Session, device: Device, status: Status, scene: SceneEditor, menu: Menu };
 
 export default class Daw extends View {
   init(p, cx) {

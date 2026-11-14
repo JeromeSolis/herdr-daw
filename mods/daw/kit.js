@@ -26,13 +26,14 @@ export const C = {
   mono: "JetBrains Mono",
 };
 
-// Clip colors for tracks (spaces). Spaces the sidebar colored keep their hue.
+// Clip colors for Sets and tracks. A Set keeps the color Herdr's sidebar or the
+// DAW's menu gave it (shared "space.colors": a theme color name or a #rrggbb).
 export const CLIPS = ["#ff9b3d", "#f2d24c", "#a3da4e", "#4fd6a8", "#4cc2ef", "#7f9dff", "#b98cf2", "#f27bbd", "#ff6b66", "#c9a77a"];
-const ANSI = { ansi6: "#4fd6a8", ansi3: "#ff9b3d", ansi4: "#4cc2ef", ansi5: "#b98cf2", ansi2: "#a3da4e", ansi1: "#f27bbd" };
+export const ANSI = { ansi6: "#4fd6a8", ansi3: "#ff9b3d", ansi4: "#4cc2ef", ansi5: "#b98cf2", ansi2: "#a3da4e", ansi1: "#f27bbd" };
 
 export function spaceColor(space, i) {
   const named = (shared("space.colors") ?? {})[space?.id];
-  return ANSI[named] ?? CLIPS[i % CLIPS.length];
+  return named?.startsWith("#") ? named : ANSI[named] ?? CLIPS[i % CLIPS.length];
 }
 
 export function folder(cwd) {

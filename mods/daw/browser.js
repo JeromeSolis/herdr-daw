@@ -1,5 +1,6 @@
 // The Browser (left): search, then Sets (spaces), Agents, Running and Places.
-//   Search: opens the picker. Sets: click shows one, double-click renames, + makes one.
+//   Search: opens the picker. Sets: click shows one, double-click renames, right-click
+//   opens the Set menu (its color, Rename, worktrees in a git folder, Close), + makes one.
 //   Agents: the agents installed where the shown Set lives, like a DAW's instruments.
 //   Click adds one as a new track (a tab); ⌥/Alt-click adds it as a clip in the shown
 //   track (a split beside the focused pane). The number: how many run in this Set.
@@ -11,6 +12,7 @@ import { div, svg } from "gpui-kit";
 import { h_flex, v_flex } from "gpui-base";
 import { spaces, agents, panes, focused, run, theme, home, setAgentOrder, knownAgents, shared, setShared } from "herdr";
 import { C, spaceColor, folder, programIcon, led, clean, label, shortcut, mod } from "./kit.js";
+import { openMenu } from "./menu.js";
 
 const RANK = { blocked: 4, done: 3, working: 2, idle: 1 };
 
@@ -150,6 +152,11 @@ export default class Browser {
             all.map((s, i) =>
               row(`brw-sp-${s.id}`, s.active)
                 .on_click((e) => run(e.click_count === 2 ? "space.rename" : "space.select", { id: s.id }))
+                // The Set menu: its color, Rename, New/Open/Remove worktree (git folders), Close.
+                .on_mouse_down("right", (_e, cx) => {
+                  cx.stop_propagation();
+                  openMenu("space", { id: s.id }, cx);
+                })
                 .child(div().size(10).flex_none().rounded(2).bg(spaceColor(s, i)))
                 .child(div().flex_1().min_w(0).truncate().child(s.name))
                 .when(Boolean(s.status && s.status !== "idle"), (el) => el.child(led(t, s.status, 7)))
